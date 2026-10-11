@@ -413,18 +413,46 @@ dataset (n = 12,469).
 
 ## Project Structure
 
-```
-.
+The repository keeps the exploratory analysis and model evaluation in a Jupyter
+notebook, the interactive dashboard in a separate Streamlit app, and the source
+dataset at the project root.
+
+```text
+student-performance-analytics/
 ├── .github/
 │   └── workflows/
-│       └── setup.yml
+│       ├── setup.yml
+│       └── streamlit-monitor.yml
+├── screenshots/
+│   ├── correlation-heatmap.png
+│   ├── dashboard-overview.png
+│   └── data-explorer.png
+├── .gitignore
 ├── PiyushRaj_StudentPerformanceAnalytics.ipynb
-├── streamlit_app.py
-├── student_performance.csv
-├── requirements.txt
 ├── PiyushRaj_StudentPerformanceAnalytics_ProjectReport.docx
-└── README.md
+├── README.md
+├── requirements.txt
+├── streamlit_app.py
+└── student_performance.csv
 ```
+
+### Key files and folders
+
+- **`.github/workflows/setup.yml`** — installs project dependencies and executes
+  Jupyter notebooks in GitHub Actions.
+- **`.github/workflows/streamlit-monitor.yml`** — periodically checks the
+  deployed Streamlit dashboard and can send a Discord alert when the check fails
+  (if `DISCORD_WEBHOOK_URL` is configured in repository secrets).
+- **`screenshots/`** — dashboard preview images embedded in this README.
+- **`PiyushRaj_StudentPerformanceAnalytics.ipynb`** — data cleaning, exploratory
+  analysis, statistical tests, feature engineering, model training, and evaluation.
+- **`PiyushRaj_StudentPerformanceAnalytics_ProjectReport.docx`** — project report.
+- **`streamlit_app.py`** — interactive dashboard for filtering and exploring the
+  dataset; model training and prediction analysis are documented in the notebook.
+- **`student_performance.csv`** — dataset used by the notebook and dashboard.
+- **`requirements.txt`** — Python dependencies.
+- **`.gitignore`** — excludes virtual environments, Python cache files,
+  notebook checkpoints, and `.env` files.
 
 ---
 
