@@ -1,0 +1,105 @@
+name: Streamlit Uptime Monitor
+
+on:
+  # Check every 6 hours so the app receives periodic traffic.
+  # This may reduce inactivity hibernation, but Streamlit controls sleep behavior.
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  monitor:
+    name: Check live dashboard
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Check Streamlit app
+        env:
+          APP_URL: https://student-performance-analytics-prediction.streamlit.app/
+        run: |
+          python - <<'PY'
+          import os
+          import sys
+          from urllib.error import HTTPError, URLError
+          from urllib.request import Request, urlopen
+
+          url = os.environ["APP_URL"]
+          request = Request(
+              url,
+              headers={"User-Agent": "GitHub-Actions-Uptime-Monitor/1.0"},
+          )
+
+          try:
+              with urlopen(request, timeout=25) as response:
+                  status = response.status
+                  body = response.read(1_000_000).decode("utf-8", errors="ignore")
+          except HTTPError as error:
+              status = error.code
+              body = error.read(1_000_000).decode("utf-8", errors="ignore")
+          except (URLError, TimeoutError, OSError) as error:
+              print(f"FAIL: could not reach {url}: {error}")
+              sys.exit(1)
+
+          print(f"HTTP status: {status}")
+          body_lower = body.lower()
+          failure_markers = (
+              "this app has gone to sleep",
+              "gone to sleep due to inactivity",
+              "error running your app",
+              "app has gone over its resource limits",
+          )
+          marker = next((item for item in failure_markers if item in body_lower), None)
+
+          if not 200 <= status < 400:
+              print(f"FAIL: unexpected HTTP status {status}")
+              sys.exit(1)
+
+          if marker:
+              print(f"FAIL: detected Streamlit status message: {marker}")
+              sys.exit(1)
+
+          print("PASS: dashboard endpoint responded successfully.")
+          PY
+
+      - name: Send Discord alert on failure
+        if: failure()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          APP_URL: https://student-performance-analytics-prediction.streamlit.app/
+          REPOSITORY: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "::warning::DISCORD_WEBHOOK_URL is not configured. Add it in Settings > Secrets and variables > Actions."
+            exit 0
+          fi
+
+          python - <<'PY' > /tmp/discord-payload.json
+          import json
+          import os
+
+          repository = os.environ["REPOSITORY"]
+          run_id = os.environ["RUN_ID"]
+          payload = {
+              "content": (
+                  "🚨 **Streamlit dashboard health check failed**\n"
+                  f"App: {os.environ['APP_URL']}\n"
+                  f"Check the GitHub Actions run: https://github.com/{repository}/actions/runs/{run_id}\n"
+                  "The app may be asleep, unavailable, or returning an error. Open the app and check Streamlit Cloud logs."
+              )
+          }
+          print(json.dumps(payload))
+          PY
+
+          curl --fail --silent --show-error --max-time 20 \
+            -H "Content-Type: application/json" \
+            --data-binary @/tmp/discord-payload.json \
+            "$DISCORD_WEBHOOK_URL"
+
+      - name: Report healthy status
+        if: success()
+        run: echo "Streamlit dashboard is reachable."
