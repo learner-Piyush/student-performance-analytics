@@ -105,14 +105,14 @@ to the corresponding final grade band.
 
 | Category | Tool / Library | Version (runtime) |
 |---|---|---|
-| Language | Python 3 | >= 3.9 |
-| Data manipulation | pandas | 3.0.6 |
-| Numerical computing | NumPy | 2.5.3 |
-| Visualisation | Matplotlib | >= 3.7 |
-| Visualisation | Seaborn | 0.13.2 |
-| Statistical analysis | SciPy | >= 1.10 |
-| Machine learning | scikit-learn | 1.9.1 |
-| Notebook environment | Jupyter Notebook | — |
+| Language | [![Python 3](https://img.shields.io/badge/Python_3-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/) | >= 3.9 |
+| Data manipulation | [![pandas](https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/) | 3.0.6 |
+| Numerical computing | [![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/) | 2.5.3 |
+| Visualisation | [![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=matplotlib&logoColor=white)](https://matplotlib.org/) | >= 3.7 |
+| Visualisation | [![Seaborn](https://img.shields.io/badge/Seaborn-4C72B0?style=for-the-badge&logo=seaborn&logoColor=white)](https://seaborn.pydata.org/) | 0.13.2 |
+| Statistical analysis | [![SciPy](https://img.shields.io/badge/SciPy-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white)](https://scipy.org/) | >= 1.10 |
+| Machine learning | [![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/) | 1.9.1 |
+| Notebook environment | [![Jupyter Notebook](https://img.shields.io/badge/Jupyter_Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/) | — |
 
 ---
 
