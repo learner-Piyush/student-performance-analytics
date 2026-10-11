@@ -50,6 +50,21 @@ The app expects these required columns: `StudyHours`, `Attendance`, `ExamScore`,
 
 ---
 
+## 📸 Dashboard Preview
+
+Explore the live dashboard: [Student Performance Analytics](https://student-performance-analytics-prediction.streamlit.app/)
+
+### Dashboard Overview
+![Dashboard Overview](screenshots/dashboard-overview.png)
+
+### Correlation Heatmap
+![Correlation Heatmap](screenshots/correlation-heatmap.png)
+
+### Interactive Data Explorer
+![Interactive Data Explorer](screenshots/data-explorer.png)
+
+---
+
 ## Problem Statement
 
 Educational institutions face a persistent challenge: identifying at-risk students
