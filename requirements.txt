@@ -1,19 +1,15 @@
 # ── Student Performance Analytics & Prediction ────────────────────────────────
-# Requirements for: PiyushRaj_StudentPerformanceAnalytics.ipynb
-# Install with:  pip install -r requirements.txt
-# Run with:      jupyter notebook PiyushRaj_StudentPerformanceAnalytics.ipynb
-# ──────────────────────────────────────────────────────────────────────────────
+# Install with: pip install -r requirements.txt
 
 # Core data handling
 numpy
 pandas
 
-# Visualisation
+# Visualisation and analysis
 matplotlib
 seaborn
-
-# Statistical analysis
 scipy
+plotly
 
 # Machine learning
 scikit-learn
@@ -21,3 +17,6 @@ scikit-learn
 # Notebook environment
 notebook
 ipykernel
+
+# Interactive dashboard
+streamlit
