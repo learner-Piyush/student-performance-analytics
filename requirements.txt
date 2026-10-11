@@ -10,6 +10,7 @@ matplotlib
 seaborn
 scipy
 plotly
+statsmodels
 
 # Machine learning
 scikit-learn
