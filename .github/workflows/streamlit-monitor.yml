@@ -4,7 +4,7 @@ on:
   # Check every 6 hours so the app receives periodic traffic.
   # This may reduce inactivity hibernation, but Streamlit controls sleep behavior.
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 permissions:
